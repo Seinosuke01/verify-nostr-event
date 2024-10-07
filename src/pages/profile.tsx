@@ -4,11 +4,7 @@ import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { RELAY_SERVERS } from "../constants";
 import { Metadata } from "nostr-tools/kinds";
 import dayjs from "dayjs";
-
-type Profile = {
-  name?: string;
-  picture?: string;
-};
+import { Profile } from "../entities";
 
 export const ProfilePage = () => {
   const [profile, setProfile] = useState<Profile | null>();
