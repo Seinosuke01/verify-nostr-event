@@ -21,7 +21,7 @@ export const PostForm = () => {
 
     const publicKey = await window.nostr.getPublicKey();
 
-    const replyEvent: UnsignedEvent = {
+    const unsignedEvent: UnsignedEvent = {
       kind: ShortTextNote,
       created_at: dayjs().unix(),
       tags: [],
@@ -29,12 +29,12 @@ export const PostForm = () => {
       pubkey: publicKey,
     };
 
-    const event = await window.nostr.signEvent(replyEvent);
+    const event = await window.nostr.signEvent(unsignedEvent);
 
     const isGood = verifyEvent(event);
 
     if (isGood) {
-      await Promise.all(pool.publish(RELAY_SERVERS, event));
+      pool.publish(RELAY_SERVERS, event);
 
       setContent("");
     } else {

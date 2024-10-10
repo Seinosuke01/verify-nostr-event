@@ -1,12 +1,14 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { SimplePool } from "nostr-tools";
 import { Metadata } from "nostr-tools/kinds";
-import { Avatar, Card } from "@mui/material";
-import { CardHeader } from "@mui/material";
-import { CardContent } from "@mui/material";
-import { CardActions } from "@mui/material";
-import { Typography } from "@mui/material";
-
+import {
+  Avatar,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@mui/material";
 import { RELAY_SERVERS } from "../constants";
 import { Profile } from "../entities";
 import dayjs from "dayjs";

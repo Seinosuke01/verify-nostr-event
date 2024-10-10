@@ -8,9 +8,11 @@ export const IndexPage = () => {
     <Box sx={{ maxWidth: "1200px", margin: "0 auto", marginTop: 5 }}>
       <Grid container spacing={10} justifyContent="center">
         <Grid size={8}>
+          {/* 投稿の表示 */}
           <Timeline />
         </Grid>
         <Grid size={4}>
+          {/* 投稿の作成 */}
           <PostForm />
         </Grid>
       </Grid>
