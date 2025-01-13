@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { IndexPage } from "./pages";
-import { ProfilePage } from "./pages/profile";
-import { CommonLayout } from "./layouts/common-layout";
+import { useCallback, useEffect, useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { IndexPage } from './pages';
+import { ProfilePage } from './pages/profile';
+import { CommonLayout } from './layouts/common-layout';
 
 function App() {
   const [isChecking, setIsChecking] = useState(true);
@@ -18,7 +18,7 @@ function App() {
     const interval = setInterval(() => {
       // nos2xが使えない
       if (maxWait <= 0) {
-        alert("nos2xを追加してください");
+        alert('nos2xを追加してください');
         clearInterval(interval);
         setIsChecking(false);
         setCanNos2x(false);
@@ -51,21 +51,28 @@ function App() {
     return <p>nos2xが使えません</p>;
   }
 
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        element: <CommonLayout />,
+        children: [
+          {
+            path: '/',
+            element: <IndexPage />,
+          },
+          {
+            path: '/profile',
+            element: <ProfilePage />,
+          },
+        ],
+      },
+    ],
     {
-      element: <CommonLayout />,
-      children: [
-        {
-          path: "/",
-          element: <IndexPage />,
-        },
-        {
-          path: "/profile",
-          element: <ProfilePage />,
-        },
-      ],
-    },
-  ]);
+      future: {
+        v7_relativeSplatPath: true,
+      },
+    }
+  );
 
   return <RouterProvider router={router} />;
 }

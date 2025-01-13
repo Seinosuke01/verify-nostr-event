@@ -1,1 +1,1 @@
-export const RELAY_SERVERS = ["http://localhost:8080/"];
+export const RELAY_SERVERS = ['wss://relay.damus.io'];
