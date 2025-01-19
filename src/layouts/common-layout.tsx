@@ -1,25 +1,25 @@
-import { ListItemText, MenuItem, MenuList } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { ListItemText, MenuItem, MenuList } from '@mui/material';
+import { Link, Outlet } from 'react-router-dom';
 
 export const CommonLayout = () => {
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: 'flex' }}>
       <div
         style={{
-          width: 200,
-          maxWidth: "100%",
-          backgroundColor: "transparent",
+          width: 100,
+          maxWidth: '100%',
+          backgroundColor: 'transparent',
           margin: 10,
         }}
       >
         <MenuList>
-          <Link to={"/"}>
+          <Link to={'/'}>
             <MenuItem>
               <ListItemText>Home</ListItemText>
             </MenuItem>
           </Link>
 
-          <Link to={"/profile"}>
+          <Link to={'/profile'}>
             <MenuItem>
               <ListItemText>Profile</ListItemText>
             </MenuItem>
@@ -27,7 +27,7 @@ export const CommonLayout = () => {
         </MenuList>
       </div>
 
-      <main style={{ flexGrow: 1, padding: "20px" }}>
+      <main style={{ flexGrow: 1, padding: '20px' }}>
         <Outlet />
       </main>
     </div>
