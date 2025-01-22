@@ -9,10 +9,13 @@ import {
   Card,
   CardContent,
   Divider,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { SimplePool, verifyEvent } from 'nostr-tools';
-import { RELAY_SERVERS } from '../constants';
 import { EventPostData, EventGetData } from '../entities';
 
 export const IndexPage = () => {
@@ -30,6 +33,7 @@ export const IndexPage = () => {
 
   const [tagsInput, setTagsInput] = useState<string>('');
   const [loading, setLoading] = useState(false);
+  const [relay_server, setRelayServer] = useState<string>('');
 
   const pool = useMemo(() => new SimplePool(), []);
 
@@ -43,7 +47,7 @@ export const IndexPage = () => {
 
       const kindNumber = Number(eventData.kind) || 1;
 
-      const event = await pool.get(RELAY_SERVERS, {
+      const event = await pool.get([relay_server], {
         kinds: [kindNumber],
         authors: [publicKey],
       });
@@ -65,7 +69,7 @@ export const IndexPage = () => {
     } catch (error) {
       console.error('Failed to fetch event data:', error);
     }
-  }, [eventData.kind, pool]);
+  }, [eventData.kind, pool, relay_server]);
 
   const handlePublishEvent = useCallback(async () => {
     if (!window.nostr) {
@@ -77,7 +81,7 @@ export const IndexPage = () => {
     try {
       const publicKey = await window.nostr.getPublicKey();
 
-      const kindNumber = Number(eventData.kind) || 0;
+      const kindNumber = Number(eventData.kind) || 1;
 
       const signedEvent = {
         kind: kindNumber,
@@ -91,7 +95,7 @@ export const IndexPage = () => {
       const isValid = verifyEvent(event);
 
       if (isValid) {
-        pool.publish(RELAY_SERVERS, event);
+        pool.publish([relay_server], event);
         console.log('Event published:', event);
       }
     } catch (error) {
@@ -100,7 +104,7 @@ export const IndexPage = () => {
       await getEventData();
       setLoading(false);
     }
-  }, [eventData, getEventData, pool]);
+  }, [eventData, getEventData, pool, relay_server]);
 
   useEffect(() => {
     getEventData();
@@ -139,6 +143,43 @@ export const IndexPage = () => {
       <Typography variant='h4' fontWeight='bold' gutterBottom>
         Nostr イベント管理
       </Typography>
+      <Typography variant='subtitle1' fontWeight='bold' gutterBottom>
+        選択しているリレーサーバー
+      </Typography>
+      <FormControl fullWidth>
+        <InputLabel id='relay-select-label'>RELAY SERVER</InputLabel>
+        <Select
+          labelId='relay-select-label'
+          id='relay-select'
+          value={relay_server}
+          label='リレーサーバー'
+          onChange={(e) => setRelayServer(e.target.value as string)}
+          sx={{
+            backgroundColor: '#ffffff',
+            borderRadius: 1,
+            '&:hover': {
+              backgroundColor: '#f0f0f0',
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#007bff',
+            },
+          }}
+        >
+          <MenuItem value='wss://relay.damus.io'>
+            <Box display='flex' alignItems='center'>
+              🌐 <span style={{ marginLeft: 8 }}>wss://relay.damus.io</span>
+            </Box>
+          </MenuItem>
+          <MenuItem value='wss://relay.groups.nip29.com'>
+            <Box display='flex' alignItems='center'>
+              🌐{' '}
+              <span style={{ marginLeft: 8 }}>
+                wss://relay.groups.nip29.com
+              </span>
+            </Box>
+          </MenuItem>
+        </Select>
+      </FormControl>
 
       <Box
         sx={{
