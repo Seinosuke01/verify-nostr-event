@@ -62,7 +62,7 @@ const PublishRequestForm: React.FC<PublishRequestFormProps> = ({
     <Box sx={{ marginTop: 2 }}>
       <Stack spacing={2}>
         <TextField
-          label='Kind (数字)'
+          label='Kind (Number)'
           value={publishRequestEvent.kind}
           onChange={(e) =>
             setPublishRequestEvent({
