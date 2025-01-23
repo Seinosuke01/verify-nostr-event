@@ -5,12 +5,13 @@ export type Profile = {
   about?: string;
 };
 
-export type EventPostData = {
+export type EventPublishData = {
   kind: string;
   content: string;
   pubkey: string;
   tags: string[][];
   created_at: number;
+  relay_server: string;
 };
 
 export type EventGetData = {
@@ -20,4 +21,10 @@ export type EventGetData = {
   pubkey: string;
   tags: string[][];
   created_at: number;
+};
+
+export type EventGetRequestData = {
+  kind: string;
+  author: string;
+  relay_server: string;
 };

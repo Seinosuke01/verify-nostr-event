@@ -67,16 +67,25 @@ export const ProfilePage = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: '600px', marginTop: 5 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        maxWidth: '600px',
+        margin: '0 auto',
+        padding: 2,
+      }}
+    >
       <h1>Profile</h1>
-
+  
       <Divider sx={{ bgcolor: 'white' }} />
-
+  
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <h2>Icon</h2>
         <Avatar src={profile?.picture} sx={{ marginBottom: 2 }} />
       </Box>
-
+  
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <h2>Name</h2>
         <Input
@@ -90,7 +99,7 @@ export const ProfilePage = () => {
           }}
         />
       </Box>
-
+  
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <h2>UserName</h2>
         <p>@</p>
@@ -107,7 +116,7 @@ export const ProfilePage = () => {
           sx={{ width: '100%', whiteSpace: 'pre-wrap' }}
         />
       </Box>
-
+  
       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
         <h2>About</h2>
         <Input
@@ -123,18 +132,16 @@ export const ProfilePage = () => {
           sx={{ width: '100%', whiteSpace: 'pre-wrap' }}
         />
       </Box>
-
+  
       <Button
-        variant='contained'
-        color='primary'
+        variant="contained"
+        color="primary"
         onClick={handleChangeProfileMetadata}
         disabled={loading}
-        sx={{ marginTop: 3 }}
+        sx={{ marginTop: 3, width: '30%' }}
       >
         {loading ? 'Saving...' : 'Save Changes'}
       </Button>
-
-      {loading && <p>Saving...</p>}
     </Box>
-  );
+  );  
 };
